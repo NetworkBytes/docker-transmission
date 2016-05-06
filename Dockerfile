@@ -3,8 +3,10 @@
 FROM centos:latest 
 MAINTAINER John Bencic
 
-VOLUME /data
 VOLUME /config
+VOLUME /downloaded 
+VOLUME /incomplete 
+VOLUME /watch
 
 # Update the image with the latest packages (recommended)
 RUN yum update -y; yum clean all
@@ -18,8 +20,6 @@ RUN yum install -y transmission transmission-daemon; yum clean all
 # Add configuration and scripts 
 
 EXPOSE 9091 51413
-
-VOLUME /config /downloaded /incomplete /watch
 
 ENTRYPOINT ["transmission-daemon"]
 CMD ["--foreground", "--config-dir","/config"]
